@@ -1,6 +1,4 @@
-import { Instagram, Facebook } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons";
 
 export function Footer() {

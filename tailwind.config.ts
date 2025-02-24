@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        playfair: "--font-playfair-display",
+        raleway: "--font-raleway",
+      },
       fontSize: {
         sm: "clamp(0.7rem, 0.09vw + 0.68rem, 0.75rem)",
         base: "clamp(0.88rem, 0.23vw + 0.82rem, 1rem)",

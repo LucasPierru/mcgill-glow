@@ -1,11 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Instagram, Facebook } from "lucide-react";
+import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
-import { Playfair_Display } from "next/font/google";
-
-const playfair = Playfair_Display({ subsets: ["latin"] });
 
 export function Navbar() {
   return (
@@ -13,10 +10,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link
-              href="/"
-              className={`text-2xl text-gray-800 ${playfair.className}`}
-            >
+            <Link href="/" className={`text-2xl text-gray-800 font-playfair`}>
               McGill GLOW
             </Link>
           </div>
@@ -51,16 +45,16 @@ export function Navbar() {
               <Link
                 href="https://instagram.com"
                 target="_blank"
-                className="text-gray-600 hover:text-gray-900"
+                className="text-gray-400 hover:text-gray-500"
               >
-                <Instagram className="h-5 w-5" />
+                <SiInstagram />
               </Link>
               <Link
                 href="https://facebook.com"
                 target="_blank"
-                className="text-gray-600 hover:text-gray-900"
+                className="text-gray-400 hover:text-gray-500"
               >
-                <Facebook className="h-5 w-5" />
+                <SiFacebook />
               </Link>
               <Button
                 variant="default"

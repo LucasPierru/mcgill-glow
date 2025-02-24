@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 
 const JoinForm = () => {
   return (
-    <form className="w-full flex flex-col gap-2">
+    <form className="w-full max-w-lg flex flex-col gap-2">
       <Input type="text" placeholder="First Name" />
       <Input type="text" placeholder="Last Name" />
       <Input type="text" placeholder="McGill Email" />
