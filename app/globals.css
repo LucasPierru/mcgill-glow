@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+hmtl,
+body {
+  box-sizing: border-box;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -79,5 +84,30 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @media (min-width: 1024px) {
+    .scrollbar::-webkit-scrollbar {
+      width: 20px;
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+      background-clip: padding-box;
+      background-color: #a8a8a8;
+      border: 6px solid transparent;
+      border-radius: 100vw;
+    }
+
+    .scrollbar::-webkit-scrollbar-track {
+      background: #f5f5f5;
+    }
+
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #848484;
+      background-clip: padding-box;
+      border: 6px solid transparent;
+      border-radius: 100vw;
+    }
   }
 }
