@@ -1,16 +1,13 @@
 "use server";
 
 import { imageDeleteSchema } from "@/lib/validation/image";
-import { Database } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import * as z from "zod";
 
 export async function DeleteCoverImage(
-  context: z.infer<typeof imageDeleteSchema>,
+  context: z.infer<typeof imageDeleteSchema>
 ) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient();
   try {
     const { userId, postId, fileName } = imageDeleteSchema.parse(context);
     const bucketName =

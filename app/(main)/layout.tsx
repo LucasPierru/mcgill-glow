@@ -15,7 +15,7 @@ export default function MainLayout({
   return (
     <>
       <Navbar />
-      <div className="overflow-y-auto max-h-[var(--page-size)] h-full scrollbar scrollbar-smooth pb-0 lg:pb-0">
+      <div className="overflow-y-auto max-h-[var(--page-size)] h-full scrollbar scrollbar-smooth pb-0 lg:pb-0 mt-16">
         <main className="max-w-7-xl mx-auto">{children}</main>
         <Footer />
       </div>

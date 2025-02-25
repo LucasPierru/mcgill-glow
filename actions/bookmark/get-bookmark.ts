@@ -1,14 +1,11 @@
 "use server";
 
 import { bookmarkSchema } from "@/lib/validation/bookmark";
-import { Database } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import * as z from "zod";
 
 export async function GetBookmark(context: z.infer<typeof bookmarkSchema>) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient();
   try {
     const bookmark = bookmarkSchema.parse(context);
 

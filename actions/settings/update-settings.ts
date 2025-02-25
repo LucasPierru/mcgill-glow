@@ -1,14 +1,11 @@
 "use server";
 
 import { profileSchema } from "@/lib/validation/profile";
-import { Database } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import * as z from "zod";
 
 export async function UpdateSettings(context: z.infer<typeof profileSchema>) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient();
   try {
     const profile = profileSchema.parse(context);
     const { data, error } = await supabase

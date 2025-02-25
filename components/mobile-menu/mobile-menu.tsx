@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
+import useOutsideClick from "@/hooks/use-outside-click";
 
 const MobileMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -17,8 +19,14 @@ const MobileMenu = () => {
     setMenuOpen(false);
   };
 
+  const clickOutsideHandler = () => {
+    closeMenu();
+  };
+
+  useOutsideClick(ref, clickOutsideHandler);
+
   return (
-    <div>
+    <div ref={ref}>
       <button
         type="button"
         className="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 lg:hidden"

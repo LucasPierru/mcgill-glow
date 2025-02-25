@@ -1,14 +1,11 @@
 "use server";
 
 import { commentSchema } from "@/lib/validation/comment";
-import { Database } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import * as z from "zod";
 
 export async function PostComment(context: z.infer<typeof commentSchema>) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient();
   try {
     const comment = commentSchema.parse(context);
     const { data, error } = await supabase

@@ -2,7 +2,6 @@
 
 import { postCreateSchema } from "@/lib/validation/post";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import * as z from "zod";
 
 export async function CreatePost(context: z.infer<typeof postCreateSchema>) {

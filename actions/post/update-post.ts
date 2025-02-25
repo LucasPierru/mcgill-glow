@@ -1,14 +1,11 @@
 "use server";
 
 import { postUpdateSchema } from "@/lib/validation/post";
-import type { Database } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import * as z from "zod";
 
 export async function UpdatePost(context: z.infer<typeof postUpdateSchema>) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient();
   try {
     const post = postUpdateSchema.parse(context);
 

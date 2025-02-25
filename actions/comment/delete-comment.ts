@@ -1,16 +1,13 @@
 "use server";
 
 import { commentDeleteSchema } from "@/lib/validation/comment";
-import { Database } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import * as z from "zod";
 
 export async function DeleteComment(
-  context: z.infer<typeof commentDeleteSchema>,
+  context: z.infer<typeof commentDeleteSchema>
 ) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient();
   try {
     const comment = commentDeleteSchema.parse(context);
 
