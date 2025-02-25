@@ -1,22 +1,35 @@
-"use client";
-
 import Link from "next/link";
+import { Menu } from "lucide-react";
 import { SiFacebook, SiInstagram } from "@icons-pack/react-simple-icons";
-import { Button } from "@/components/ui/button";
-import MobileMenu from "./mobile-menu/mobile-menu";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
 
-export function Navbar() {
+const MobileMenu = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    closeMenu();
+  }, [pathname]);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
-    <nav className="relative z-50 w-full bg-white/80 backdrop-blur-sm border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <Link href="/" className={`text-2xl text-gray-800 font-playfair`}>
-              McGill GLOW
-            </Link>
-          </div>
-          <MobileMenu />
-          <div className="hidden lg:flex items-center space-x-8">
+    <div>
+      <button
+        type="button"
+        className="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 lg:hidden"
+        aria-label="Toggle menu"
+        onClick={() => setMenuOpen((previousState) => !previousState)}
+      >
+        <Menu className="h-6 w-6" />
+      </button>
+      {menuOpen && (
+        <div className="absolute top-16 left-0 w-full bg-white shadow-md">
+          <div className="flex flex-col items-center space-y-4 py-4 bg-white">
             <Link href="/" className="text-gray-600 hover:text-gray-900">
               Home
             </Link>
@@ -41,7 +54,6 @@ export function Navbar() {
             <Link href="/join-us" className="text-gray-600 hover:text-gray-900">
               Join Us
             </Link>
-
             <div className="flex items-center space-x-4">
               <Link
                 href="https://instagram.com"
@@ -66,7 +78,9 @@ export function Navbar() {
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+      )}
+    </div>
   );
-}
+};
+
+export default MobileMenu;

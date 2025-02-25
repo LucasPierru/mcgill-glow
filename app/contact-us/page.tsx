@@ -6,16 +6,16 @@ import FAQ from "./faq/faq";
 
 const ContactUs = () => {
   return (
-    <div className="grid grid-cols-2">
-      <div className="relative min-h-[var(--page-size)]">
+    <div className="grid lg:grid-cols-2">
+      <div className="hidden lg:block relative min-h-[var(--page-size)]">
         <Image
           src="https://images.unsplash.com/photo-1643185450492-6ba77dea00f6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="hero"
           fill
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover absolute inset-0"
         />
       </div>
-      <div className="min-w-full mx-auto flex flex-col gap-8 justify-center items-center">
+      <div className="min-w-full mx-auto flex flex-col gap-4 lg:gap-8 justify-center items-center p-4">
         <h1 className="text-3xl text-center text-[#8B2F2F] font-playfair">
           Contact Us
         </h1>

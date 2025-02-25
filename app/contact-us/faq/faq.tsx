@@ -25,12 +25,12 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="bg-black/5 relative min-h-[var(--page-size)] flex items-center">
+    <section className="bg-black/5 relative min-h-[var(--page-size)] flex items-center p-4">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className={`text-7xl text-[#8B2F2F] mb-20 font-playfair`}>
+        <h1 className={`text-4xl text-[#8B2F2F] mb-8 lg:mb-20 font-playfair`}>
           Frequently Asked Questions
         </h1>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-4 lg:gap-8">
           {faqItems.map((item, index) => (
             <FAQItem
               key={index}

@@ -4,8 +4,8 @@ import WhyJoinUs from "./why-join-us/why-join-us";
 
 const JoinUs = () => {
   return (
-    <div className="grid grid-cols-2">
-      <div className="relative min-h-[var(--page-size)]">
+    <div className="grid lg:grid-cols-2">
+      <div className="hidden lg:block relative min-h-[var(--page-size)]">
         <Image
           src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="hero"
@@ -13,7 +13,7 @@ const JoinUs = () => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="min-w-full mx-auto flex flex-col gap-8 justify-center items-center">
+      <div className="min-w-full mx-auto flex flex-col gap-8 justify-center items-center p-4">
         <h1 className="text-3xl text-center text-[#8B2F2F] font-playfair">
           Join the club
         </h1>

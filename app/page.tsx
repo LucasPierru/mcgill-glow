@@ -18,27 +18,27 @@ export default function Home() {
             fill
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/30" />
         </div>
+        <div className="absolute inset-0 bg-black/30" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className={`text-7xl text-white mb-6 ${playfair.className}`}>
+          <h1 className={`text-5xl text-white mb-6 ${playfair.className}`}>
             McGill GLOW
           </h1>
           <p className={`text-2xl text-white mb-8 ${playfair.className}`}>
             Empowering students through makeup
           </p>
-          <Button
-            asChild
+          <Link
             className="bg-[#8B2F2F] hover:bg-[#6F2525] text-white text-lg px-8 py-6"
+            href="/join-us"
           >
-            <Link href="/join">Join Now</Link>
-          </Button>
+            Join Now
+          </Link>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-24 bg-white">
+      <section className="py-8 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className={`text-4xl text-gray-900 mb-8 ${playfair.className}`}>
             Here&apos;s a little bit about us
@@ -60,7 +60,7 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-8 lg:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <ImageCard

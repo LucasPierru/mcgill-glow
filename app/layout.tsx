@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`h-screen overflow-hidden ${raleway.className}`}>
         <Navbar />
-        <div className="overflow-y-auto max-h-[var(--page-size)] h-full scrollbar scrollbar-smooth pb-16 lg:pb-0">
+        <div className="overflow-y-auto max-h-[var(--page-size)] h-full scrollbar scrollbar-smooth pb-0 lg:pb-0">
           <main className="max-w-7-xl mx-auto">{children}</main>
           <Footer />
         </div>

@@ -64,10 +64,10 @@ const Blog = () => {
             fill
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/30 w-1/2" />
+          <div className="absolute inset-0 bg-black/30 w-full lg:w-1/2" />
         </div>
 
-        <div className="relative px-4 sm:px-6 lg:px-8 text-center w-1/2">
+        <div className="relative px-4 sm:px-6 lg:px-8 text-center w-full lg:w-1/2">
           <div className="w-fit mx-auto text-left">
             <h1 className={`text-7xl text-white mb-6 font-playfair`}>BLOG</h1>
             <p className={`text-lg text-white mb-8 font-playfair`}>
@@ -78,7 +78,7 @@ const Blog = () => {
           </div>
         </div>
       </section>
-      <section className="my-16 flex flex-col max-w-5xl mx-auto gap-8">
+      <section className="my-8 lg:my-16 flex flex-col max-w-5xl mx-auto gap-4 lg:gap-8 px-4">
         <h2 className="text-lg mb-4">All Posts</h2>
         {posts.map((post) => (
           <BlogCard key={post.title} post={post} />

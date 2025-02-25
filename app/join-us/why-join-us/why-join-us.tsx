@@ -14,10 +14,10 @@ const WhyJoinUs = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className={`text-7xl text-[#8B2F2F] mb-6 font-playfair`}>
+        <h1 className={`text-4xl text-[#8B2F2F] mb-6 font-playfair`}>
           Why Join Us?
         </h1>
-        <p className={`text-base text-gray-900 max-w-4xl mb-8`}>
+        <p className={`text-base text-black/90 max-w-4xl mb-8`}>
           Join McGill University to be part of a supportive and encouraging
           environment that is inclusive to all and works to empower women by
           breaking social stigmas. Through McGill University you will meet

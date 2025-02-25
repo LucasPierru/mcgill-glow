@@ -4,7 +4,7 @@ import { Post } from "@/types/post";
 const BlogCard = ({ post }: { post: Post }) => {
   return (
     <div className="flex border border-gray-400">
-      <div className="relative w-1/2 h-96">
+      <div className="hidden lg:block relative w-1/2 h-96">
         <Image
           src={post.imageUrl}
           alt={post.title}
@@ -12,8 +12,8 @@ const BlogCard = ({ post }: { post: Post }) => {
           className="absolute object-cover h-full w-full"
         />
       </div>
-      <div className="flex flex-col justify-between p-8 w-1/2">
-        <div className="flex flex-col gap-4">
+      <div className="flex flex-col justify-between p-8 w-full lg:w-1/2">
+        <div className="flex flex-col gap-4 -z-20">
           <div className="flex w-full items-center gap-4">
             <div className="relative w-10 h-10">
               <Image
@@ -35,8 +35,8 @@ const BlogCard = ({ post }: { post: Post }) => {
           </h2>
           <p className="text-base line-clamp-3">{post.body}</p>
         </div>
-        <div className="relative flex justify-between border-t border-gray-400 pt-2">
-          <div className="absolute bg-gradient-to-t from-white to-transparent -top-14 h-12 w-full"></div>
+        <div className="relative flex justify-between border-t border-gray-400 pt-2 -z-10">
+          <div className="absolute bg-gradient-to-t from-white to-transparent -top-14 h-14 w-full"></div>
           <div className="flex gap-4">
             <span>{post.views} views</span>
             <span>{post.comments} comments</span>
