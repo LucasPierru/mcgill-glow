@@ -1,4 +1,4 @@
-import { SeoType } from "types";
+import { SeoType } from "../../types";
 
 export const seoData: SeoType = {
   title: "Multi-user, full-stack blogging application",

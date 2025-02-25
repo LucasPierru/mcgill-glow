@@ -13,7 +13,6 @@ export type SeoType = {
 };
 
 export type FooterType = {
-  categories: CategoryType[];
   pages: PageType[];
   socials: SocialType[];
   legals: PageType[];

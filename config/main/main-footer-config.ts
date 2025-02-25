@@ -6,10 +6,8 @@ import {
   YoutubeIcon,
 } from "@/icons/socials";
 import { FooterType } from "@/types";
-import { default as mainCategoryConfig } from "./main-category-config";
 
 const mainFooterConfig: FooterType = {
-  categories: mainCategoryConfig,
   pages: [
     {
       title: "Home",
