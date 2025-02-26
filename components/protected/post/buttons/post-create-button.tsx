@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { protectedPostConfig } from "@/config/protected";
 import { createClient } from "@/utils/supabase/client";
-import { Session } from "@supabase/supabase-js";
+import { Session, User } from "@supabase/supabase-js";
 import { Loader2 as SpinnerIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -20,30 +20,26 @@ const PostCreateButton = () => {
   const supabase = createClient();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = React.useState<User | null>(null);
 
   // Check authentitication and bookmark states
   React.useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [session?.user.id, supabase.auth]);
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
+  }, [supabase.auth]);
 
   async function createPost() {
     setIsLoading(true);
 
-    if (session?.user.id) {
+    if (user?.id) {
       const post = {
         title: protectedPostConfig.untitled,
-        user_id: session?.user.id,
+        user_id: user.id,
       };
 
       const response = await CreatePost(post);
@@ -53,7 +49,7 @@ const PostCreateButton = () => {
         // This forces a cache invalidation.
         router.refresh();
         // Redirect to the new post
-        router.push("/posts/" + response.id);
+        router.push("/admin/posts/" + response.id);
         setIsLoading(false);
       } else {
         setIsLoading(false);

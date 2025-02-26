@@ -30,9 +30,9 @@ export const columns: ColumnDef<Post>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value == row.getValue("published")
-      );
+      const status = statuses.find((status) => {
+        return status.value === row.getValue<boolean>("published");
+      });
 
       if (!status) {
         return null;

@@ -15,9 +15,9 @@ interface PostEditorPageProps {
 async function getUserId() {
   const supabase = await createClient();
   const {
-    data: { session },
+    data: { user },
     error,
-  } = await supabase.auth.getSession();
+  } = await supabase.auth.getUser();
 
   if (error) {
     console.log("Error has occured while getting UserId!");
@@ -25,7 +25,7 @@ async function getUserId() {
     return null;
   }
 
-  return session ? session.user.id : null;
+  return user ? user.id : null;
 }
 
 async function getPost(postId: string, userId: string) {

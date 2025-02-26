@@ -3,7 +3,7 @@ import { UserCircle } from "lucide-react";
 
 const dashBoardProfile: DashBoardType = {
   title: "Profile",
-  slug: "/settings",
+  slug: "/admin/settings",
   icon: UserCircle,
 };
 

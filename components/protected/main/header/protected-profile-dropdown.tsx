@@ -10,7 +10,7 @@ import { dashBoardLogout, dashBoardProfile } from "@/config/shared/dashboard";
 import { shimmer, toBase64 } from "@/lib/utils";
 import { Profile } from "@/types/collection.types";
 import { createClient } from "@/utils/supabase/client";
-import { Session } from "@supabase/supabase-js";
+import { Session, User } from "@supabase/supabase-js";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 const ProtectedProfileDropDown = () => {
   const supabase = createClient();
   const router = useRouter();
-  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string>("");
 
   const signOut = async () => {
@@ -32,17 +32,13 @@ const ProtectedProfileDropDown = () => {
   };
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
   }, [supabase.auth]);
 
   useEffect(() => {
@@ -50,14 +46,14 @@ const ProtectedProfileDropDown = () => {
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
-        .match({ id: session?.user.id })
+        .match({ id: user?.id })
         .single<Profile>();
       if (data) {
         setAvatarUrl(data.avatar_url ? data.avatar_url : "");
       }
     }
     fetchAvatar();
-  }, [session, supabase]);
+  }, [user, supabase]);
 
   return (
     <>

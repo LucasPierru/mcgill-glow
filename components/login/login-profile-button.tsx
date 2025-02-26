@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  dashBoardBookMark,
+  dashBoardEvent,
   dashBoardLogout,
   dashBoardPost,
   dashBoardSettings,
@@ -50,7 +50,7 @@ const LoginProfileButton: FC<LoginProfileButtonProps> = ({
             className="h-[40px] w-[40px] rounded-full"
             priority
             placeholder={`data:image/svg+xml;base64,${toBase64(
-              shimmer(40, 40),
+              shimmer(40, 40)
             )}`}
           />
         </DropdownMenuTrigger>
@@ -67,12 +67,12 @@ const LoginProfileButton: FC<LoginProfileButtonProps> = ({
           <DropdownMenuSeparator />
 
           <Link
-            href={dashBoardBookMark.slug || ""}
+            href={dashBoardEvent.slug || ""}
             className="group inline-flex w-full items-center rounded-md bg-white px-3 py-1.5 hover:bg-gray-100"
           >
-            <dashBoardBookMark.icon className="mr-2 h-4 w-4 text-gray-500 group-hover:text-gray-900" />
+            <dashBoardEvent.icon className="mr-2 h-4 w-4 text-gray-500 group-hover:text-gray-900" />
             <span className="text-sm text-gray-500 group-hover:text-gray-900">
-              {dashBoardBookMark.title}
+              {dashBoardEvent.title}
             </span>
           </Link>
           <DropdownMenuSeparator />

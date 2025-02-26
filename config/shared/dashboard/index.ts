@@ -1,4 +1,4 @@
-export { default as dashBoardBookMark } from "./dashboard-bookmark";
+export { default as dashBoardEvent } from "./dashboard-event";
 export { default as dashBoardLogout } from "./dashboard-logout";
 export { default as dashBoardPost } from "./dashboard-post";
 export { default as dashBoardProfile } from "./dashboard-profile";

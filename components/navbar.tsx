@@ -29,7 +29,10 @@ export function Navbar() {
             <Link href="/blog" className="text-gray-600 hover:text-gray-900">
               Blog
             </Link>
-            <Link href="/events" className="text-gray-600 hover:text-gray-900">
+            <Link
+              href="/admin/events"
+              className="text-gray-600 hover:text-gray-900"
+            >
               Events
             </Link>
             <Link

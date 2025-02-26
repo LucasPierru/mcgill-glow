@@ -3,7 +3,7 @@ import { SettingsIcon } from "lucide-react";
 
 const dashBoardSettings: DashBoardType = {
   title: "Settings",
-  slug: "/settings",
+  slug: "/admin/settings",
   icon: SettingsIcon,
 };
 

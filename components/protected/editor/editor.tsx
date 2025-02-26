@@ -41,7 +41,7 @@ import { DashboardModal } from "@uppy/react";
 import Tus from "@uppy/tus";
 import { SparklesIcon, Loader2 as SpinnerIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import slugify from "react-slugify";
@@ -54,6 +54,8 @@ import {
   EditorUploadGalleryImageTableEmpty,
 } from "./upload";
 import { defaultEditorContent } from "./wysiwyg/default-content";
+import { createClient } from "@/utils/supabase/client";
+import { Session } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
 
@@ -87,6 +89,7 @@ const Editor: FC<EditorProps> = ({
   const [showLoadingAlert, setShowLoadingAlert] = useState<boolean>(false);
   const [showCoverModal, setShowCoverModal] = useState<boolean>(false);
   const [showGalleryModal, setShowGalleryModal] = useState<boolean>(false);
+  const [session, setSession] = useState<Session | null>(null);
 
   // Editor
   const [saveStatus, setSaveStatus] = useState("Saved");
@@ -94,8 +97,6 @@ const Editor: FC<EditorProps> = ({
   const [content, setContent] = useState<string | null>(post?.content || null);
 
   // Setup Uppy with Supabase
-  const bucketNamePosts =
-    process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET_POSTS || "posts";
   const bucketNameCoverImage =
     process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET_COVER_IMAGE ||
     "cover-image";
@@ -107,6 +108,17 @@ const Editor: FC<EditorProps> = ({
   const supabaseUploadURL = `https://${projectId}.supabase.co/storage/v1/upload/resumable`;
 
   // Uppy instance for cover photo upload
+  const supabase = createClient();
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setSession(session);
+    };
+    fetchSession();
+  }, []);
 
   var uppyCover = new Uppy({
     id: "cover-image",
@@ -120,7 +132,7 @@ const Editor: FC<EditorProps> = ({
   }).use(Tus, {
     endpoint: supabaseUploadURL,
     headers: {
-      authorization: `Bearer ${token}`,
+      authorization: `Bearer ${session?.access_token}`,
     },
     chunkSize: 6 * 1024 * 1024,
     allowedMetaFields: [
@@ -163,7 +175,7 @@ const Editor: FC<EditorProps> = ({
   }).use(Tus, {
     endpoint: supabaseUploadURL,
     headers: {
-      authorization: `Bearer ${token}`,
+      authorization: `Bearer ${session?.access_token}`,
     },
     chunkSize: 6 * 1024 * 1024,
     allowedMetaFields: [
@@ -226,7 +238,7 @@ const Editor: FC<EditorProps> = ({
 
     if (response) {
       toast.success(protectedEditorConfig.successMessage);
-      router.push(`/posts?search=refresh`);
+      router.push(`/admin/posts?search=refresh`);
     } else {
       toast.error(protectedEditorConfig.errorMessage);
     }
