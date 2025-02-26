@@ -5,12 +5,12 @@ import {
 
 export const statuses = [
   {
-    value: "published",
+    value: true,
     label: "Published",
     icon: PublishedIcon,
   },
   {
-    value: "draft",
+    value: false,
     label: "Draft",
     icon: DraftIcon,
   },

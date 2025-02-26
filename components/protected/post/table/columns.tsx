@@ -1,13 +1,13 @@
 "use client";
 
-import { Draft } from "@/types/collection.types";
+import { Post } from "@/types/collection.types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { statuses } from "./data/data";
 
-export const columns: ColumnDef<Draft>[] = [
+export const columns: ColumnDef<Post>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
@@ -25,13 +25,13 @@ export const columns: ColumnDef<Draft>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
+    accessorKey: "published",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
       const status = statuses.find(
-        (status) => status.value === row.getValue("status")
+        (status) => status.value === row.getValue("published")
       );
 
       if (!status) {

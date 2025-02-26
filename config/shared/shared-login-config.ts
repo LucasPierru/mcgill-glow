@@ -13,6 +13,7 @@ const sharedLoginConfig = {
   email: "Sign in with magic link",
   sendButton: "Send magic link",
   emailRequiredError: "Email is required.",
+  passwordRequiredError: "Password is required.",
   emailSent: "Email sent.",
   error: "Error occured.",
 };

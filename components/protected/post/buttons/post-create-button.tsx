@@ -53,7 +53,7 @@ const PostCreateButton = () => {
         // This forces a cache invalidation.
         router.refresh();
         // Redirect to the new post
-        router.push("/editor/posts/" + response.id);
+        router.push("/posts/" + response.id);
         setIsLoading(false);
       } else {
         setIsLoading(false);

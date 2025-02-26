@@ -1,24 +1,15 @@
 "use client";
 
 import { sharedLoginConfig } from "@/config/shared";
-import { GithubIcon, GoogleIcon, LoadingDots } from "@/icons";
-import { getUrl } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-
-const getLoginRedirectPath = (pathname?: string | null): string => {
-  return (
-    getUrl() +
-    "/auth/callback" + // Required for PKCE authentication.
-    "?redirect=" + // Passed to auth/route/callback to redirect after auth
-    (pathname ? pathname : "/dashboard")
-  );
-};
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const FormSchema = z.object({
   email: z
@@ -26,6 +17,9 @@ const FormSchema = z.object({
       required_error: sharedLoginConfig.emailRequiredError,
     })
     .email(),
+  password: z.string({
+    required_error: sharedLoginConfig.passwordRequiredError,
+  }),
 });
 
 interface LoginSectionProps {
@@ -34,103 +28,57 @@ interface LoginSectionProps {
 
 const LoginSection: React.FC<LoginSectionProps> = ({ setOpen }) => {
   const supabase = createClient();
-  const form = useForm<z.infer<typeof FormSchema>>({
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
-  const [signInGoogleClicked, setSignInGoogleClicked] =
-    React.useState<boolean>(false);
-  const [signInGithubClicked, setSignInGithubClicked] =
-    React.useState<boolean>(false);
   const router = useRouter();
-  const currentPathname = usePathname();
-  const redirectTo = getLoginRedirectPath(currentPathname);
 
-  async function signInWithGoogle() {
-    setSignInGoogleClicked(true);
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo,
-        queryParams: {
-          prompt: "consent",
-        },
-      },
-    });
-    router.refresh();
-  }
+  console.log({ errors });
 
-  async function signInWithGitHub() {
-    setSignInGithubClicked(true);
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo,
-        queryParams: {
-          prompt: "consent",
-        },
-      },
+  async function signInWithEmail(data: z.infer<typeof FormSchema>) {
+    console.log({ data });
+    const { email, password } = data;
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
+    console.log({ email, error });
     router.refresh();
   }
 
   return (
     <>
       <div className="mx-auto w-full justify-center rounded-md border border-black/5 bg-gray-50 align-middle shadow-md">
-        <div className="flex flex-col items-center justify-center space-y-3 border-b px-4 py-6 pt-8 text-center">
-          <a href="https://ub.cafe">
-            <Image
-              src="/images/logo.png"
-              alt="Logo"
-              className="h-16 w-16 rounded-full"
-              width={64}
-              height={64}
-              priority
-            />
-          </a>
-          <h3 className="font-display text-2xl font-bold">
+        <div className="flex flex-col items-center justify-center space-y-3 border-b px-4 py-8 text-center">
+          <Link className="text-xl font-playfair" href="/">
+            McGill GLOW
+          </Link>
+          {/* <h3 className="font-display text-2xl font-bold">
             {sharedLoginConfig.title}
-          </h3>
-        </div>
-
-        {/* Sign in buttons with Social accounts */}
-        <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
-          <button
-            disabled={signInGoogleClicked}
-            className={`${
-              signInGoogleClicked
-                ? "cursor-not-allowed border-gray-200 bg-gray-100"
-                : "border border-gray-200 bg-white text-black hover:bg-gray-50"
-            } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
-            onClick={() => signInWithGoogle()}
+          </h3> */}
+          <form
+            onSubmit={handleSubmit(signInWithEmail)}
+            className="flex flex-col space-y-4"
           >
-            {signInGoogleClicked ? (
-              <LoadingDots color="#808080" />
-            ) : (
-              <>
-                <GoogleIcon className="h-5 w-5" />
-                <p>{sharedLoginConfig.google}</p>
-              </>
-            )}
-          </button>
-
-          <button
-            disabled={signInGithubClicked}
-            className={`${
-              signInGithubClicked
-                ? "cursor-not-allowed border-gray-200 bg-gray-100"
-                : "border border-gray-200 bg-white text-black hover:bg-gray-50"
-            } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
-            onClick={() => signInWithGitHub()}
-          >
-            {signInGithubClicked ? (
-              <LoadingDots color="#808080" />
-            ) : (
-              <>
-                <GithubIcon className="h-5 w-5" />
-                <p>{sharedLoginConfig.github}</p>
-              </>
-            )}
-          </button>
+            <Input
+              id="email"
+              placeholder="Email"
+              {...register("email")}
+              error={errors.email?.message}
+            />
+            <Input
+              id="password"
+              placeholder="Password"
+              {...register("password")}
+              error={errors.password?.message}
+              type="password"
+            />
+            <Button type="submit">Login</Button>
+          </form>
         </div>
       </div>
     </>

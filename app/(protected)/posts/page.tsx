@@ -4,7 +4,6 @@ import PostTableTitle from "@/components/protected/post/post-table-title";
 import { columns } from "@/components/protected/post/table/columns";
 import { DataTable } from "@/components/protected/post/table/data-table";
 import { protectedPostConfig } from "@/config/protected";
-import { Draft } from "@/types/collection.types";
 import { createClient } from "@/utils/supabase/server";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -24,17 +23,16 @@ interface PostsPageProps {
 const PostsPage: FC<PostsPageProps> = async ({ searchParams }) => {
   const supabase = await createClient();
   // Fetch user data
-  /* const {
+  const {
     data: { user },
-  } = await supabase.auth.getUser(); */
+  } = await supabase.auth.getUser();
 
   // Fetch posts
   const { data, error } = await supabase
-    .from("drafts")
-    .select(`*, categories(*)`)
-    .order("created_at", { ascending: false });
-  /* .match({ author_id: user?.id }) */
-  /* .returns<Draft[]>(); */
+    .from("posts")
+    .select(`*`)
+    .order("created_at", { ascending: false })
+    .match({ author_id: user?.id });
 
   /* if (!data || error || !data.length) {
     notFound;

@@ -9,7 +9,7 @@ const Login = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  user && redirect("/editor/posts");
+  user && redirect("/posts");
 
   return (
     <>

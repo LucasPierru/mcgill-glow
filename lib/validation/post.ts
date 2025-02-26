@@ -40,9 +40,6 @@ export const postEditFormSchema = z.object({
     .max(100, {
       message: "Slug must not be longer than 100 characters.",
     }),
-  categoryId: z.string({
-    required_error: "Please select a category.",
-  }),
   image: z.string().optional(),
   description: z
     .string()
@@ -59,7 +56,6 @@ export const postUpdateSchema = z.object({
   id: z.string(),
   title: z.string(),
   slug: z.string(),
-  categoryId: z.string(),
   image: z.string().optional(),
   description: z.string().optional(),
   content: z.any().optional(),
