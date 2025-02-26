@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { CheckIcon, CirclePlusIcon } from "lucide-react";
+import { CheckIcon, CirclePlusIcon, LucideProps } from "lucide-react";
 import { Column } from "@tanstack/react-table";
 import * as React from "react";
 
@@ -26,7 +26,9 @@ interface DataTableFacetedFilterProps<TData, TValue> {
   options: {
     label: string;
     value: string;
-    icon?: React.ComponentType<{ className?: string }>;
+    icon: React.ForwardRefExoticComponent<
+      Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+    >;
   }[];
 }
 

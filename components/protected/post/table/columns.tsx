@@ -31,7 +31,7 @@ export const columns: ColumnDef<Post>[] = [
     ),
     cell: ({ row }) => {
       const status = statuses.find(
-        (status) => status.value === row.getValue("published")
+        (status) => status.value == row.getValue("published")
       );
 
       if (!status) {
