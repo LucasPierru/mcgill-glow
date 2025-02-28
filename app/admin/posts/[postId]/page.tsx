@@ -3,7 +3,6 @@ import { Separator } from "@/components/ui/separator";
 import { protectedEditorConfig } from "@/config/protected";
 import { Post } from "@/types/collection.types";
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 
 export const revalidate = 0;
@@ -92,7 +91,6 @@ async function getGalleryImageFileNames(
   userId: string | null,
   postId: string
 ) {
-  const cookieStore = cookies();
   const supabase = await createClient();
   const { data, error } = await supabase.storage
     .from(bucketName)
@@ -121,7 +119,6 @@ async function getGalleryImageUrls(
   postId: string,
   fileNames: string[]
 ) {
-  const cookieStore = cookies();
   const supabase = await createClient();
   let filePublicUrls: string[] = [];
   fileNames.map((fileName) => {

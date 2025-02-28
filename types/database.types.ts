@@ -95,6 +95,71 @@ export type Database = {
           },
         ]
       }
+      events: {
+        Row: {
+          about: string | null
+          address: string | null
+          created_at: string
+          creator_id: string | null
+          date: string | null
+          description: string | null
+          endtime: string | null
+          id: string
+          image: string | null
+          name: string | null
+          place: string | null
+          published: boolean | null
+          registrationlink: string | null
+          slug: string | null
+          starttime: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          about?: string | null
+          address?: string | null
+          created_at?: string
+          creator_id?: string | null
+          date?: string | null
+          description?: string | null
+          endtime?: string | null
+          id?: string
+          image?: string | null
+          name?: string | null
+          place?: string | null
+          published?: boolean | null
+          registrationlink?: string | null
+          slug?: string | null
+          starttime?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          about?: string | null
+          address?: string | null
+          created_at?: string
+          creator_id?: string | null
+          date?: string | null
+          description?: string | null
+          endtime?: string | null
+          id?: string
+          image?: string | null
+          name?: string | null
+          place?: string | null
+          published?: boolean | null
+          registrationlink?: string | null
+          slug?: string | null
+          starttime?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           author_id: string | null

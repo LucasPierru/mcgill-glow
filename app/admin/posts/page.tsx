@@ -34,9 +34,9 @@ const PostsPage: FC<PostsPageProps> = async ({ searchParams }) => {
     .order("created_at", { ascending: false })
     .match({ author_id: user?.id });
 
-  /* if (!data || error || !data.length) {
+  if (!data || error || !data.length) {
     notFound;
-  } */
+  }
 
   return (
     <>
