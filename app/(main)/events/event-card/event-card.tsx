@@ -14,7 +14,7 @@ const EventCard = ({ event }: EventCardProps) => {
     <div className="flex flex-col max-w-lg gap-2">
       <div className="relative w-full aspect-square">
         <Image
-          src={event.imageUrl}
+          src={event.image}
           alt={event.name}
           fill
           className="w-full h-full object-cover absolute inset-0"

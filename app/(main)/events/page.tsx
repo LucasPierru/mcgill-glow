@@ -9,7 +9,7 @@ const Events = () => {
     place: "Sala San Marco Event Centre",
     description:
       "This event is aiming to raise funds for the construction of a recovery home for domestic violence survivors.",
-    imageUrl:
+    image:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     about:
       "McGill Glow will be hosting a booth with exciting goody bags and fabulous raffle prizes! Register",
@@ -18,6 +18,8 @@ const Events = () => {
     address: "83 Lebreton St N, Ottawa, ON K1R 7H8",
     registrationLink:
       "https://www.eventbrite.ca/e/ottawa-womens-show-tickets-168633123057",
+    slug: "maama-watali-x-uoglow-home-for-the-holidays-fundraising-gala",
+    published: true,
   };
 
   return (
