@@ -155,6 +155,7 @@ const Editor: FC<EditorProps> = ({
   uppyCover.on("complete", async (result) => {
     if (result.successful!.length > 0) {
       toast.success(protectedEditorConfig.successMessageImageUpload);
+      form.setValue("image", result.successful![0].meta.name);
       router.refresh();
     } else {
       toast.error(protectedEditorConfig.errorMessageImageUpload);

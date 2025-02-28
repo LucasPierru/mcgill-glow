@@ -29,6 +29,19 @@ const protectedEventConfig = {
   placeholderSlug: "Please provide a slug for your event",
   formAddress: "Address",
   placeholderAddress: "Please provide an address for your event",
+  formPlace: "Place",
+  placeholderPlace: "Please provide a place for your event",
+  formAbout: "About",
+  placeholderAbout: "Please provide what the event is about",
+  formDate: "Date",
+  placeholderDate: "Please provide the date of the event",
+  formStartTime: "Start Time",
+  placeholderStartTime: "Please provide the start time of the event",
+  formEndTime: "End Time",
+  placeholderEndTime: "Please provide the end time of the event",
+  formRegistrationLink: "Registration Link",
+  placeholderRegistrationLink:
+    "Please provide a registration link for your event",
   generateSlug: "Generate slug",
   coverImageTitle: "Cover Image",
   coverImageDescription: "You can upload one cover image.",
@@ -36,6 +49,12 @@ const protectedEventConfig = {
   shortDescriptionTitle: "Short description",
   shortDescriptionDescription: "Update your event's short description",
   placeholderDescription: "Please provide a short description of your event",
+  errorMessagesDeleteImage: "Error deleting image",
+  errorMessageImageUpload: "Error uploading image",
+  successMessagesDeleteImage: "Image deleted",
+  successMessageImageUpload: "Image uploaded",
+  formImageNote: "Only JPG, PNG and GIF files are allowed",
+  formImageUploadFile: "Upload a file",
 };
 
 export default protectedEventConfig;

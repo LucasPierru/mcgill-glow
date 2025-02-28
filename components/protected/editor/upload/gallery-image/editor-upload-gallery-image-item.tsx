@@ -16,7 +16,12 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { protectedEditorConfig } from "@/config/protected";
 import { shimmer, toBase64 } from "@/lib/utils";
-import { Loader2 as SpinnerIcon, TrashIcon, ZoomIn } from "lucide-react";
+import {
+  CopyIcon,
+  Loader2 as SpinnerIcon,
+  TrashIcon,
+  ZoomIn,
+} from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
@@ -58,18 +63,25 @@ const EditorUploadGalleryImageItem: FC<EditorUploadGalleryImageItemProps> = ({
   return (
     <>
       <div className="flex items-center gap-x-3 border-b border-gray-200 pb-3">
-        <div className="h-11 w-11 flex-none items-center">
+        <div className="relative h-11 w-11 flex-none items-center">
           <Image
-            className="h-11 w-11 rounded-md bg-cover"
+            className="absolute h-full w-full rounded-md object-cover"
             src={imageUrl}
             alt="Gallery Photo"
-            height={44}
-            width={44}
+            fill
             priority
             placeholder={`data:image/svg+xml;base64,${toBase64(
-              shimmer(44, 44),
+              shimmer(44, 44)
             )}`}
           />
+          <div className="absolute group flex items-center justify-center bg-transparent hover:bg-black/30 w-full h-full rounded-md transition-all">
+            <CopyIcon
+              onClick={() => {
+                navigator.clipboard.writeText(imageUrl);
+              }}
+              className="text-gray-300 hidden group-hover:block cursor-pointer active:scale-[0.85] transition-all "
+            />
+          </div>
         </div>
         <div className="grow items-center justify-start text-sm">
           {imageUrl.split("/").at(-1)}
@@ -91,7 +103,7 @@ const EditorUploadGalleryImageItem: FC<EditorUploadGalleryImageItemProps> = ({
                   width={700}
                   priority
                   placeholder={`data:image/svg+xml;base64,${toBase64(
-                    shimmer(500, 700),
+                    shimmer(500, 700)
                   )}`}
                 />
               </div>

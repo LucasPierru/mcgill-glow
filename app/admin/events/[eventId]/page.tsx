@@ -4,6 +4,7 @@ import { Event } from "@/types/collection.types";
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
 import EventForm from "@/components/protected/event/event-form/event-form";
+import { getImageFileName, getImageUrl } from "@/actions/images/get-image";
 
 interface EventEditorPageProps {
   params: { eventId: string };
@@ -29,6 +30,14 @@ const EventPage = async ({ params }: EventEditorPageProps) => {
 
   const event = await getEvent(params.eventId);
 
+  // Cover image setup
+  const imageFileName = await getImageFileName("event-image", params.eventId);
+  const imagePublicUrl = await getImageUrl(
+    "event-image",
+    params.eventId,
+    imageFileName || ""
+  );
+
   if (!event) {
     return notFound;
   }
@@ -42,7 +51,11 @@ const EventPage = async ({ params }: EventEditorPageProps) => {
         </p>
       </div>
       <Separator className="mb-5 max-w-2xl" />
-      <EventForm event={event} />
+      <EventForm
+        event={event}
+        imageFileName={imageFileName || ""}
+        imagePublicUrl={imagePublicUrl}
+      />
     </div>
   );
 };
