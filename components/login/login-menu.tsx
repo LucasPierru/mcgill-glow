@@ -27,11 +27,7 @@ const LoginMenu = () => {
 
   useEffect(() => {
     async function fetchAvatar() {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .match({ id: user?.id })
-        .single<Profile>();
+      const { data, error } = await supabase.from("admins").select("*").match({ id: user?.id }).single<Profile>();
       if (data) {
         setAvatarUrl(data.avatar_url ? data.avatar_url : "");
       }
@@ -39,15 +35,7 @@ const LoginMenu = () => {
     fetchAvatar();
   }, [supabase, user?.id]);
 
-  return (
-    <>
-      {user ? (
-        <LoginProfileButton profileImageUrl={avatarUrl} />
-      ) : (
-        <LoginButton />
-      )}
-    </>
-  );
+  return <>{user ? <LoginProfileButton profileImageUrl={avatarUrl} /> : <LoginButton />}</>;
 };
 
 export default LoginMenu;

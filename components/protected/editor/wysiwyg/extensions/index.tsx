@@ -8,11 +8,12 @@ import Placeholder from "@tiptap/extension-placeholder";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import TextStyle from "@tiptap/extension-text-style";
+import TextAlign from "@tiptap/extension-text-align";
+import Heading from "@tiptap/extension-heading";
 import TiptapUnderline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "tiptap-markdown";
 import CustomKeymap from "./custom-keymap";
-import DragAndDrop from "./drag-and-drop";
 import SlashCommand from "./slash-command";
 import UpdatedImage from "./updated-image";
 
@@ -40,14 +41,12 @@ export const defaultExtensions = [
     },
     codeBlock: {
       HTMLAttributes: {
-        class:
-          "rounded-sm bg-stone-100 p-5 font-mono font-medium text-stone-800",
+        class: "rounded-sm bg-stone-100 p-5 font-mono font-medium text-stone-800",
       },
     },
     code: {
       HTMLAttributes: {
-        class:
-          "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-stone-900",
+        class: "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-stone-900",
         spellcheck: "false",
       },
     },
@@ -71,10 +70,7 @@ export const defaultExtensions = [
             const start = range.from;
             let end = range.to;
 
-            tr.insert(start - 1, this.type.create(attributes)).delete(
-              tr.mapping.map(start),
-              tr.mapping.map(end),
-            );
+            tr.insert(start - 1, this.type.create(attributes)).delete(tr.mapping.map(start), tr.mapping.map(end));
           },
         }),
       ];
@@ -86,8 +82,7 @@ export const defaultExtensions = [
   }),
   TiptapLink.configure({
     HTMLAttributes: {
-      class:
-        "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
+      class: "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer",
     },
   }),
   TiptapImage.configure({
@@ -134,5 +129,10 @@ export const defaultExtensions = [
     transformCopiedText: true,
   }),
   CustomKeymap,
-  DragAndDrop,
+  TextAlign.configure({
+    types: ["heading", "paragraph"],
+  }),
+  Heading.configure({
+    levels: [1, 2, 3],
+  }),
 ];

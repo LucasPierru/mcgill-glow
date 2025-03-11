@@ -9,6 +9,33 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admins: {
+        Row: {
+          avatar_url: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+          username: string | null
+          website: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+          username?: string | null
+          website?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+          username?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
       comments: {
         Row: {
           comment: string | null
@@ -43,54 +70,7 @@ export type Database = {
             foreignKeyName: "comments_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      drafts: {
-        Row: {
-          author_id: string | null
-          content: string | null
-          created_at: string
-          description: string | null
-          id: string
-          image: string | null
-          published: boolean | null
-          slug: string | null
-          title: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          author_id?: string | null
-          content?: string | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          image?: string | null
-          published?: boolean | null
-          slug?: string | null
-          title?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          author_id?: string | null
-          content?: string | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          image?: string | null
-          published?: boolean | null
-          slug?: string | null
-          title?: string | null
-          updated_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "drafts_author_id_fkey"
-            columns: ["author_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
+            referencedRelation: "admins"
             referencedColumns: ["id"]
           },
         ]
@@ -155,10 +135,49 @@ export type Database = {
             foreignKeyName: "events_creator_id_fkey"
             columns: ["creator_id"]
             isOneToOne: false
-            referencedRelation: "profiles"
+            referencedRelation: "admins"
             referencedColumns: ["id"]
           },
         ]
+      }
+      members: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          is_active: boolean | null
+          is_approved: boolean | null
+          picture: string | null
+          token: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_approved?: boolean | null
+          picture?: string | null
+          token?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_approved?: boolean | null
+          picture?: string | null
+          token?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       posts: {
         Row: {
@@ -168,6 +187,7 @@ export type Database = {
           description: string | null
           id: string
           image: string | null
+          likes: number
           published: boolean | null
           slug: string | null
           title: string | null
@@ -180,6 +200,7 @@ export type Database = {
           description?: string | null
           id?: string
           image?: string | null
+          likes?: number
           published?: boolean | null
           slug?: string | null
           title?: string | null
@@ -192,6 +213,7 @@ export type Database = {
           description?: string | null
           id?: string
           image?: string | null
+          likes?: number
           published?: boolean | null
           slug?: string | null
           title?: string | null
@@ -202,37 +224,10 @@ export type Database = {
             foreignKeyName: "posts_author_id_fkey"
             columns: ["author_id"]
             isOneToOne: false
-            referencedRelation: "profiles"
+            referencedRelation: "admins"
             referencedColumns: ["id"]
           },
         ]
-      }
-      profiles: {
-        Row: {
-          avatar_url: string | null
-          full_name: string | null
-          id: string
-          updated_at: string | null
-          username: string | null
-          website: string | null
-        }
-        Insert: {
-          avatar_url?: string | null
-          full_name?: string | null
-          id: string
-          updated_at?: string | null
-          username?: string | null
-          website?: string | null
-        }
-        Update: {
-          avatar_url?: string | null
-          full_name?: string | null
-          id?: string
-          updated_at?: string | null
-          username?: string | null
-          website?: string | null
-        }
-        Relationships: []
       }
     }
     Views: {

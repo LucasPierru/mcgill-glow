@@ -1,59 +1,17 @@
 import Image from "next/image";
-import { Post } from "@/types/post";
+import { Post } from "@/types/collection.types";
 import BlogCard from "./blog-card/blog-card";
+import { createClient } from "@/utils/supabase/server";
 
-const Blog = () => {
-  const posts: Post[] = [
-    {
-      imageUrl:
-        "https://images.unsplash.com/photo-1453761816053-ed5ba727b5b7?q=80&w=2049&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      title:
-        'Maama Watali x uOGlow: "Home for the Holidays" Fundraising Gala ✨ "À la maison pour les vacances" Gala de bienfaisance',
-      author: {
-        name: "John Doe",
-        picture:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      date: "2023-10-01",
-      readTime: 5,
-      body: "Maama Watali is a Black-led organization dedicated to empowering Black women and their families as they navigate the journey of rebuilding their lives after experiencing loss and gender-based violence. Maama Watali aims to create a safe and nurturing environment where women and their children can heal, thrive, and regain their independence.",
-      views: 100,
-      likes: 10,
-      comments: 2,
-    },
-    {
-      imageUrl:
-        "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      title: "Second Blog Post",
-      author: {
-        name: "Jane Smith",
-        picture:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      date: "2023-10-02",
-      readTime: 8,
-      body: "This is the body of the second blog post.",
-      views: 100,
-      likes: 10,
-      comments: 2,
-    },
-    {
-      imageUrl:
-        "https://images.unsplash.com/photo-1520173043194-dc6b2a237fee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      title: "Third Blog Post",
-      author: {
-        name: "Alice Johnson",
-        picture:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      date: "2023-10-03",
-      readTime: 6,
-      body: "This is the body of the third blog post.",
-      views: 100,
-      likes: 10,
-      comments: 2,
-    },
-  ];
+const Blog = async () => {
+  const supabase = await createClient();
+
+  const { data: posts, error } = await supabase
+    .from("posts")
+    .select(
+      "id, title, image, description, slug, content, created_at, updated_at, likes, admins(id, full_name, avatar_url), comments(id)"
+    );
+
   return (
     <div>
       <section className="relative min-h-[50vh] flex items-center">
@@ -80,9 +38,20 @@ const Blog = () => {
       </section>
       <section className="my-8 lg:my-16 flex flex-col max-w-5xl mx-auto gap-4 lg:gap-8 px-4">
         <h2 className="text-lg mb-4">All Posts</h2>
-        {posts.map((post) => (
-          <BlogCard key={post.title} post={post} />
-        ))}
+        {posts &&
+          posts.map((post) => {
+            const author = post.admins!;
+            return (
+              <BlogCard
+                key={post.title}
+                post={post}
+                author={author}
+                commentsCount={post.comments.length}
+                likesCount={0}
+                viewsCount={0}
+              />
+            );
+          })}
       </section>
     </div>
   );

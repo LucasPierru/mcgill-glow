@@ -1,21 +1,32 @@
-import { Event } from "@/types/event";
+import { Event } from "@/types/collection.types";
 import Image from "next/image";
 import dayjs from "dayjs";
-import { Button } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 
 dayjs().format();
 
 type EventCardProps = {
-  event: Event;
+  event: Pick<Event, "id" | "name" | "slug" | "image" | "date" | "place">;
 };
 
-const EventCard = ({ event }: EventCardProps) => {
+async function getPublicImageUrl(path: string, fileName: string) {
+  const supabase = await createClient();
+  const bucketName = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET_EVENT_IMAGE || "event-image";
+  const { data } = supabase.storage.from(bucketName).getPublicUrl(`${path}/${fileName}`);
+
+  if (data && data.publicUrl) return data.publicUrl;
+
+  return "/images/not-found.jpg";
+}
+
+const EventCard = async ({ event }: EventCardProps) => {
   return (
-    <div className="flex flex-col max-w-lg gap-2">
+    <div className="flex flex-col w-full max-w-lg gap-2">
       <div className="relative w-full aspect-square">
         <Image
-          src={event.image}
-          alt={event.name}
+          src={await getPublicImageUrl(event.id, event.image!)}
+          alt={event.name!}
           fill
           className="w-full h-full object-cover absolute inset-0"
         />
@@ -24,7 +35,9 @@ const EventCard = ({ event }: EventCardProps) => {
       <span>
         {dayjs(event.date).format("ddd, MMM D")} | {event.place}
       </span>
-      <Button className="w-fit self-center">Details</Button>
+      <Link href={`/events/${event.slug}`} className="w-fit self-center bg-primary text-secondary px-4 py-3">
+        Details
+      </Link>
     </div>
   );
 };

@@ -22,3 +22,26 @@
   --editor-highlight-pink: #faf1f5;
   --editor-highlight-gray: #f1f1ef;
 }
+
+h1,
+h2 {
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 1.4rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+h4,
+h5,
+h6 {
+  font-size: 1rem;
+}

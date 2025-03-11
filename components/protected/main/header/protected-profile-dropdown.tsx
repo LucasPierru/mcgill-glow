@@ -43,11 +43,7 @@ const ProtectedProfileDropDown = () => {
 
   useEffect(() => {
     async function fetchAvatar() {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .match({ id: user?.id })
-        .single<Profile>();
+      const { data, error } = await supabase.from("admins").select("*").match({ id: user?.id }).single<Profile>();
       if (data) {
         setAvatarUrl(data.avatar_url ? data.avatar_url : "");
       }
@@ -66,28 +62,22 @@ const ProtectedProfileDropDown = () => {
             width={40}
             className="h-[40px] w-[40px] rounded-full"
             priority
-            placeholder={`data:image/svg+xml;base64,${toBase64(
-              shimmer(40, 40)
-            )}`}
+            placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(40, 40))}`}
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 font-sans">
           <Link
             href={dashBoardProfile.slug || ""}
-            className="group inline-flex w-full items-center rounded-md bg-white px-3 py-2.5 hover:bg-gray-100"
-          >
+            className="group inline-flex w-full items-center rounded-md bg-white px-3 py-2.5 hover:bg-gray-100">
             <dashBoardProfile.icon className="mr-2 h-4 w-4 text-gray-500 group-hover:text-gray-900" />
-            <span className="text-sm text-gray-500 group-hover:text-gray-900">
-              {dashBoardProfile.title}
-            </span>
+            <span className="text-sm text-gray-500 group-hover:text-gray-900">{dashBoardProfile.title}</span>
           </Link>
           <DropdownMenuSeparator />
 
           <button
             onClick={signOut}
             type="button"
-            className="group inline-flex w-full items-center rounded-md bg-white px-3 py-2.5 hover:bg-gray-100"
-          >
+            className="group inline-flex w-full items-center rounded-md bg-white px-3 py-2.5 hover:bg-gray-100">
             <dashBoardLogout.icon className="mr-2 h-4 w-4 text-gray-500 group-hover:text-gray-900" />
             <span className="group-hover:text-gray-90 text-sm text-gray-500 group-hover:text-gray-900">
               {dashBoardLogout.title}

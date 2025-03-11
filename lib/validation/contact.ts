@@ -8,7 +8,8 @@ export const emailSchema = z.object({
 // Contact form validation schema
 export const contactFormSchema = z.object({
     name: z.string().min(3, { message: 'Name is required' }),
-    email: z.string().email({ message: 'Email is required.' }),
+    email: z.string().email({ message: 'Enter a valid email' }),
+    subject: z.string().min(3, { message: 'Subject is required' }),
     message: z
         .string()
         .min(4, {

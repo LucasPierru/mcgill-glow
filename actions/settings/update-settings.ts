@@ -9,7 +9,7 @@ export async function UpdateSettings(context: z.infer<typeof profileSchema>) {
   try {
     const profile = profileSchema.parse(context);
     const { data, error } = await supabase
-      .from("profiles")
+      .from("admins")
       .update({
         full_name: `${profile.fistName} ${profile.lastName}`,
         username: profile.userName,

@@ -10,22 +10,8 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
@@ -97,12 +83,8 @@ const Editor: FC<EditorProps> = ({
   const [content, setContent] = useState<string | null>(post?.content || null);
 
   // Setup Uppy with Supabase
-  const bucketNameCoverImage =
-    process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET_COVER_IMAGE ||
-    "cover-image";
-  const bucketNameGalleryImage =
-    process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET_GALLERY_IMAGE ||
-    "gallery-image";
+  const bucketNameCoverImage = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET_COVER_IMAGE || "cover-image";
+  const bucketNameGalleryImage = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET_GALLERY_IMAGE || "gallery-image";
   const token = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const projectId = process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ID;
   const supabaseUploadURL = `https://${projectId}.supabase.co/storage/v1/upload/resumable`;
@@ -135,12 +117,7 @@ const Editor: FC<EditorProps> = ({
       authorization: `Bearer ${session?.access_token}`,
     },
     chunkSize: 6 * 1024 * 1024,
-    allowedMetaFields: [
-      "bucketName",
-      "objectName",
-      "contentType",
-      "cacheControl",
-    ],
+    allowedMetaFields: ["bucketName", "objectName", "contentType", "cacheControl"],
   });
 
   uppyCover.on("file-added", (file) => {
@@ -179,12 +156,7 @@ const Editor: FC<EditorProps> = ({
       authorization: `Bearer ${session?.access_token}`,
     },
     chunkSize: 6 * 1024 * 1024,
-    allowedMetaFields: [
-      "bucketName",
-      "objectName",
-      "contentType",
-      "cacheControl",
-    ],
+    allowedMetaFields: ["bucketName", "objectName", "contentType", "cacheControl"],
   });
 
   uppyGallery.on("file-added", (file) => {
@@ -225,8 +197,6 @@ const Editor: FC<EditorProps> = ({
   async function onSubmit(data: EditorFormValues) {
     setShowLoadingAlert(true);
     setIsSaving(true);
-    console.log({ data });
-    console.log({ errors: form.formState.errors });
 
     const response = await UpdatePost({
       id: post.id,
@@ -257,9 +227,7 @@ const Editor: FC<EditorProps> = ({
           <Card className="max-w-2xl">
             <CardHeader>
               <CardTitle>{protectedEditorConfig.generalTitle}</CardTitle>
-              <CardDescription>
-                {protectedEditorConfig.generalDescription}
-              </CardDescription>
+              <CardDescription>{protectedEditorConfig.generalDescription}</CardDescription>
             </CardHeader>
             <Separator className="mb-8" />
             <CardContent className="space-y-4">
@@ -270,10 +238,7 @@ const Editor: FC<EditorProps> = ({
                   <FormItem className="w-full max-w-md">
                     <FormLabel>{protectedEditorConfig.formTitle}</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder={protectedEditorConfig.placeHolderTitle}
-                        {...field}
-                      />
+                      <Input placeholder={protectedEditorConfig.placeHolderTitle} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -287,10 +252,7 @@ const Editor: FC<EditorProps> = ({
                   <FormItem className="w-full max-w-md">
                     <FormLabel>{protectedEditorConfig.slug}</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder={protectedEditorConfig.placeholderSlug}
-                        {...field}
-                      />
+                      <Input placeholder={protectedEditorConfig.placeholderSlug} {...field} />
                     </FormControl>
                     <FormDescription>
                       <Button
@@ -298,10 +260,7 @@ const Editor: FC<EditorProps> = ({
                         variant="outline"
                         size="sm"
                         className="mt-2"
-                        onClick={() =>
-                          field.onChange(slugify(form.getValues("title")))
-                        }
-                      >
+                        onClick={() => field.onChange(slugify(form.getValues("title")))}>
                         <SparklesIcon className="mr-2 h-4 w-4" />
                         {protectedEditorConfig.generateSlug}
                       </Button>
@@ -317,9 +276,7 @@ const Editor: FC<EditorProps> = ({
           <Card className="max-w-2xl">
             <CardHeader>
               <CardTitle>{protectedEditorConfig.coverImageTitle}</CardTitle>
-              <CardDescription>
-                {protectedEditorConfig.coverImageDescription}
-              </CardDescription>
+              <CardDescription>{protectedEditorConfig.coverImageDescription}</CardDescription>
             </CardHeader>
             <Separator className="mb-8" />
             <CardContent className="space-y-4">
@@ -359,12 +316,9 @@ const Editor: FC<EditorProps> = ({
                       <button
                         onClick={() => setShowCoverModal(!showCoverModal)}
                         type="button"
-                        className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                      >
+                        className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                         <PaperclipIcon className="mr-1 h-4 w-4" />
-                        <span className="">
-                          {protectedEditorConfig.formCoverImageUploadFile}
-                        </span>
+                        <span className="">{protectedEditorConfig.formCoverImageUploadFile}</span>
                       </button>
                     </div>
                   </div>
@@ -389,9 +343,7 @@ const Editor: FC<EditorProps> = ({
             <CardHeader>
               <CardTitle>{protectedEditorConfig.galleryImageTitle}</CardTitle>
               <CardDescription>
-                {protectedEditorConfig.galleryImageDescription +
-                  allowedNumberOfImages +
-                  "  images."}
+                {protectedEditorConfig.galleryImageDescription + allowedNumberOfImages + "  images."}
               </CardDescription>
             </CardHeader>
             <Separator className="mb-8" />
@@ -413,12 +365,9 @@ const Editor: FC<EditorProps> = ({
                     <button
                       onClick={() => setShowGalleryModal(!showGalleryModal)}
                       type="button"
-                      className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                    >
+                      className="inline-flex items-center rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                       <PaperclipIcon className="mr-1 h-4 w-4" />
-                      <span className="">
-                        {protectedEditorConfig.chooseFile}
-                      </span>
+                      <span className="">{protectedEditorConfig.chooseFile}</span>
                     </button>
                   </div>
                 </div>
@@ -440,12 +389,8 @@ const Editor: FC<EditorProps> = ({
           {/* Short Description */}
           <Card className="max-w-2xl">
             <CardHeader>
-              <CardTitle>
-                {protectedEditorConfig.shortDescriptionTitle}
-              </CardTitle>
-              <CardDescription>
-                {protectedEditorConfig.shortDescriptionDescription}
-              </CardDescription>
+              <CardTitle>{protectedEditorConfig.shortDescriptionTitle}</CardTitle>
+              <CardDescription>{protectedEditorConfig.shortDescriptionDescription}</CardDescription>
             </CardHeader>
             <Separator className="mb-8" />
             <CardContent className="space-y-4">
@@ -457,9 +402,7 @@ const Editor: FC<EditorProps> = ({
                   <FormItem>
                     <FormControl>
                       <Textarea
-                        placeholder={
-                          protectedEditorConfig.placeholderDescription
-                        }
+                        placeholder={protectedEditorConfig.placeholderDescription}
                         className="resize-none"
                         {...field}
                       />
@@ -482,16 +425,14 @@ const Editor: FC<EditorProps> = ({
             <Button
               type="submit"
               className="flex !bg-gray-900 px-10 !text-white hover:!bg-gray-800"
-              disabled={isSaving}
-            >
+              disabled={isSaving}>
               {protectedEditorConfig.submit}
             </Button>
             <Button
               type="button"
               onClick={() => router.back()}
               className="flex !bg-gray-100 px-10 !text-gray-900 hover:!bg-gray-200"
-              disabled={isSaving}
-            >
+              disabled={isSaving}>
               {protectedEditorConfig.cancel}
             </Button>
           </div>
@@ -500,9 +441,7 @@ const Editor: FC<EditorProps> = ({
       <AlertDialog open={showLoadingAlert} onOpenChange={setShowLoadingAlert}>
         <AlertDialogContent className="font-sans">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-center">
-              {protectedPostConfig.pleaseWait}
-            </AlertDialogTitle>
+            <AlertDialogTitle className="text-center">{protectedPostConfig.pleaseWait}</AlertDialogTitle>
             <AlertDialogDescription className="mx-auto text-center">
               <SpinnerIcon className="h-6 w-6 animate-spin" />
             </AlertDialogDescription>
