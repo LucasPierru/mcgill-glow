@@ -21,7 +21,7 @@ export const profileFormSchema = z.object({
   email: z.string().email().optional(),
   avatarUrl: z.string().url().optional(),
   website: z.string().optional(),
-});
+})
 
 export const profileSchema = z.object({
   id: z.string(),
@@ -32,3 +32,11 @@ export const profileSchema = z.object({
   avatarUrl: z.string().url().optional(),
   website: z.string().optional(),
 });
+
+export const registerFormSchema = z.object({
+  password: z.string().min(8, { message: "Password must be at least 8 characters long." }),
+  confirmPassword: z.string().min(8, { message: "Password must be at least 8 characters long." }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});;

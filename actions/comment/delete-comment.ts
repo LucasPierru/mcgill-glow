@@ -13,8 +13,8 @@ export async function DeleteComment(
 
     const { data, error } = await supabase
       .from("comments")
-      .delete()
-      .match({ id: comment.id, user_id: comment.userId })
+      .update({ is_visible: false })
+      .match({ id: comment.id })
       .select();
 
     if (error) {

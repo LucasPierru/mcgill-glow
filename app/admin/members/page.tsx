@@ -1,25 +1,24 @@
-import { ProtectedEventTableColumns, ProtectedEventTableTitle } from "@/components/protected/event";
-import EventTableEmpty from "@/components/protected/event/event-empty-table";
+import { ProtectedMemberTableColumns, ProtectedMemberTableTitle } from "@/components/protected/members";
+import MemberTableEmpty from "@/components/protected/members/member-empty-table";
 import PostRefreshOnce from "@/components/protected/post/post-refresh-once";
 import { DataTable } from "@/components/protected/post/table/data-table";
-import { detailEventConfig } from "@/config/detail";
+import protectedMemberConfig from "@/config/protected/protected-member-config";
 import { createClient } from "@/utils/supabase/server";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import React from "react";
+
+export const metadata: Metadata = {
+  title: protectedMemberConfig.title,
+  description: protectedMemberConfig.description,
+};
 
 export const revalidate = 0;
 
-export const metadata: Metadata = {
-  title: detailEventConfig.title,
-  description: detailEventConfig.description,
-};
-
-interface EventsPageProps {
+interface MembersPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const EventsPage: React.FC<EventsPageProps> = async ({ searchParams }) => {
+const MembersPage = async ({ searchParams }: MembersPageProps) => {
   const supabase = await createClient();
   // Fetch total pages
   const { count } = await supabase.from("events").select("*", { count: "exact", head: true });
@@ -41,7 +40,7 @@ const EventsPage: React.FC<EventsPageProps> = async ({ searchParams }) => {
 
   // Fetch posts
   const { data, error } = await supabase
-    .from("events")
+    .from("members")
     .select(`*`)
     .order("created_at", { ascending: false })
     .range(from, to);
@@ -55,11 +54,11 @@ const EventsPage: React.FC<EventsPageProps> = async ({ searchParams }) => {
       <div className="mx-auto max-w-5xl p-4 sm:p-6 lg:p-8">
         {data?.length && data?.length > 0 ? (
           <>
-            <ProtectedEventTableTitle />
-            <DataTable data={data ? data : []} columns={ProtectedEventTableColumns} filterName="name" />
+            <ProtectedMemberTableTitle />
+            <DataTable data={data ? data : []} columns={ProtectedMemberTableColumns} filterName="full_name" />
           </>
         ) : (
-          <EventTableEmpty />
+          <MemberTableEmpty />
         )}
         <PostRefreshOnce />
       </div>
@@ -67,4 +66,4 @@ const EventsPage: React.FC<EventsPageProps> = async ({ searchParams }) => {
   );
 };
 
-export default EventsPage;
+export default MembersPage;

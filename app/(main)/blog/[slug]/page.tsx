@@ -2,7 +2,6 @@ import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
 import PostHeader from "../post-header/post-header";
 import readingTime from "reading-time";
-import { generateHTML } from "@tiptap/core";
 import PostContent from "./post-content/post-content";
 import Comment from "./comment/comment";
 import AddComment from "./add-comment/add-comment";
@@ -17,9 +16,11 @@ export default async function PostPage({ params }: PostPageProps) {
   const { data: post, error } = await supabase
     .from("posts")
     .select(
-      "id, title, image, description, slug, content, created_at, updated_at, admins(id, full_name, avatar_url), comments(id, comment, created_at)"
+      "id, title, image, description, slug, content, created_at, updated_at, admins(id, full_name, avatar_url), comments(id, comment, created_at, is_visible)"
     )
     .eq("slug", params.slug)
+    .eq("comments.is_visible", true)
+    .order("created_at", { referencedTable: "comments", ascending: false })
     .single();
 
   if (!post) {
@@ -27,6 +28,12 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const readTime = readingTime(post.content ? post.content : "");
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  console.log({ user });
 
   return (
     <div className="flex flex-col gap-8 max-w-5xl mx-auto p-8">
@@ -46,9 +53,9 @@ export default async function PostPage({ params }: PostPageProps) {
       </div>
       <div className="flex flex-col gap-8 px-12 py-4 border border-border">
         <h3 className="border-b border-foreground py-4">Comments</h3>
-        <AddComment />
+        <AddComment postId={post.id} />
         {post.comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment key={comment.id} comment={comment} user={user} />
         ))}
       </div>
     </div>

@@ -31,8 +31,7 @@ const MobileMenu = () => {
         type="button"
         className="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 lg:hidden"
         aria-label="Toggle menu"
-        onClick={() => setMenuOpen((previousState) => !previousState)}
-      >
+        onClick={() => setMenuOpen((previousState) => !previousState)}>
         <Menu className="h-6 w-6" />
       </button>
       {menuOpen && (
@@ -41,49 +40,29 @@ const MobileMenu = () => {
             <Link href="/" className="text-gray-600 hover:text-gray-900">
               Home
             </Link>
-            <Link
-              href="/about-us"
-              className="text-gray-600 hover:text-gray-900"
-            >
+            <Link href="/about-us" className="text-gray-600 hover:text-gray-900">
               About Us
             </Link>
             <Link href="/blog" className="text-gray-600 hover:text-gray-900">
               Blog
             </Link>
-            <Link
-              href="/admin/events"
-              className="text-gray-600 hover:text-gray-900"
-            >
+            <Link href="/events" className="text-gray-600 hover:text-gray-900">
               Events
             </Link>
-            <Link
-              href="/contact-us"
-              className="text-gray-600 hover:text-gray-900"
-            >
+            <Link href="/contact-us" className="text-gray-600 hover:text-gray-900">
               Contact Us
             </Link>
             <Link href="/join-us" className="text-gray-600 hover:text-gray-900">
               Join Us
             </Link>
             <div className="flex items-center space-x-4">
-              <Link
-                href="https://instagram.com"
-                target="_blank"
-                className="text-gray-400 hover:text-gray-500"
-              >
+              <Link href="https://instagram.com" target="_blank" className="text-gray-400 hover:text-gray-500">
                 <SiInstagram />
               </Link>
-              <Link
-                href="https://facebook.com"
-                target="_blank"
-                className="text-gray-400 hover:text-gray-500"
-              >
+              <Link href="https://facebook.com" target="_blank" className="text-gray-400 hover:text-gray-500">
                 <SiFacebook />
               </Link>
-              <Button
-                variant="default"
-                className="bg-[#8B2F2F] hover:bg-[#6F2525] text-white"
-              >
+              <Button variant="default" className="bg-[#8B2F2F] hover:bg-[#6F2525] text-white">
                 Donate Now
               </Button>
             </div>

@@ -12,7 +12,7 @@ export async function PostComment(context: z.infer<typeof commentSchema>) {
       .from("comments")
       .insert({
         post_id: comment.postId,
-        user_id: comment.userId,
+        //user_id: comment.userId,
         comment: comment.comment,
       })
       .single();
